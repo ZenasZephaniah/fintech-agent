@@ -1,6 +1,7 @@
 "use client";
 import { useState, useRef, useEffect } from "react";
-import { Loader2, ShieldCheck, ArrowRight, Sparkles, AlertCircle, Home, PieChart, History, ScanLine, Send, Landmark, Smartphone, User, Bell, TrendingUp, Zap, CreditCard, MessageSquare, Store, ChevronRight } from "lucide-react";
+// I added X, Search, and QrCode to this import list to fix the error and add the new icons!
+import { Loader2, ShieldCheck, ArrowRight, Sparkles, Home, History, ScanLine, Send, Landmark, Smartphone, User, Bell, TrendingUp, Zap, CreditCard, ChevronRight, X, Search, QrCode } from "lucide-react";
 
 export default function PhonePeFinalApp() {
   const [activeTab, setActiveTab] = useState('home');
@@ -69,7 +70,7 @@ export default function PhonePeFinalApp() {
     <div className="min-h-screen bg-gray-300 flex justify-center items-center p-4 font-sans">
       <div className="w-full max-w-[400px] h-[800px] bg-[#f5f5f5] rounded-[3rem] shadow-2xl overflow-hidden border-[8px] border-gray-900 flex flex-col relative">
         
-        {/* EXACT PHONEPE HEADER (Updated with Name & Benefits) */}
+        {/* EXACT PHONEPE HEADER */}
         <div className="bg-[#5f259f] p-4 pt-8 pb-10 text-white relative shadow-md z-10">
           <div className="flex justify-between items-center">
             <div className="flex items-center gap-3">
@@ -97,7 +98,7 @@ export default function PhonePeFinalApp() {
           </div>
         </div>
 
-        {/* --- MAIN SCROLLABLE CONTENT (Dynamic based on tabs) --- */}
+        {/* --- MAIN SCROLLABLE CONTENT --- */}
         <div className="flex-1 overflow-y-auto z-20 pb-24 relative">
           
           {/* HOME TAB */}
@@ -160,7 +161,7 @@ export default function PhonePeFinalApp() {
               </div>
               <div className="absolute bottom-0 w-full bg-white border-t p-4 z-40">
                 <form onSubmit={handleChatSubmit} className="flex gap-2">
-                  <input type="text" value={chatInput} onChange={(e) => setChatInput(e.target.value)} placeholder="E.g., How much did I spend on food?" className="flex-1 bg-gray-100 rounded-full px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-[#5f259f]"/>
+                  <input type="text" value={chatInput} onChange={(e) => setChatInput(e.target.value)} placeholder="Ask PaySense AI..." className="flex-1 bg-gray-100 rounded-full px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-[#5f259f]"/>
                   <button type="submit" className="bg-[#5f259f] text-white p-3 rounded-full hover:bg-purple-800"><Send className="w-5 h-5"/></button>
                 </form>
               </div>
@@ -168,19 +169,20 @@ export default function PhonePeFinalApp() {
           )}
 
           {/* OTHER STATIC TABS */}
-          {['stores', 'wealth', 'history'].includes(activeTab) && (
+          {['search', 'scan', 'history'].includes(activeTab) && (
             <div className="h-full flex flex-col items-center justify-center text-gray-400 p-8 text-center animate-in fade-in">
               <Loader2 className="w-12 h-12 mb-4 animate-spin opacity-20" />
-              <h2 className="text-xl font-bold text-gray-700 capitalize">{activeTab} Dashboard</h2>
-              <p className="text-sm mt-2">Syncing your latest UPI data securely...</p>
+              <h2 className="text-xl font-bold text-gray-700 capitalize">{activeTab} Interface</h2>
+              <p className="text-sm mt-2">Loading secure module...</p>
             </div>
           )}
         </div>
 
-        {/* --- DYNAMIC BOTTOM NAV --- */}
+        {/* --- DYNAMIC BOTTOM NAV (UPDATED WITH SEARCH AND SCAN QR) --- */}
         <div className="absolute bottom-0 w-full bg-white border-t border-gray-200 px-6 py-3 flex justify-between items-center z-50 rounded-b-[2.5rem]">
           <div onClick={()=>setActiveTab('home')} className={`flex flex-col items-center gap-1 cursor-pointer transition-colors ${activeTab === 'home' ? 'text-[#5f259f]' : 'text-gray-400'}`}><Home className="w-6 h-6"/><span className="text-[10px] font-bold">Home</span></div>
-          <div onClick={()=>setActiveTab('stores')} className={`flex flex-col items-center gap-1 cursor-pointer transition-colors ${activeTab === 'stores' ? 'text-[#5f259f]' : 'text-gray-400'}`}><Store className="w-6 h-6"/><span className="text-[10px] font-bold">Stores</span></div>
+          
+          <div onClick={()=>setActiveTab('search')} className={`flex flex-col items-center gap-1 cursor-pointer transition-colors ${activeTab === 'search' ? 'text-[#5f259f]' : 'text-gray-400'}`}><Search className="w-6 h-6"/><span className="text-[10px] font-bold">Search</span></div>
           
           {/* AI Center Button */}
           <div onClick={()=>setActiveTab('ai')} className="flex flex-col items-center cursor-pointer -mt-6 relative">
@@ -190,18 +192,19 @@ export default function PhonePeFinalApp() {
             <span className={`text-[10px] font-black mt-1 ${activeTab === 'ai' ? 'text-[#5f259f]' : 'text-gray-600'}`}>PaySense AI</span>
           </div>
 
-          <div onClick={()=>setActiveTab('wealth')} className={`flex flex-col items-center gap-1 cursor-pointer transition-colors ${activeTab === 'wealth' ? 'text-[#5f259f]' : 'text-gray-400'}`}><PieChart className="w-6 h-6"/><span className="text-[10px] font-bold">Wealth</span></div>
+          <div onClick={()=>setActiveTab('scan')} className={`flex flex-col items-center gap-1 cursor-pointer transition-colors ${activeTab === 'scan' ? 'text-[#5f259f]' : 'text-gray-400'}`}><QrCode className="w-6 h-6"/><span className="text-[10px] font-bold">Scan QR</span></div>
+          
           <div onClick={()=>setActiveTab('history')} className={`flex flex-col items-center gap-1 cursor-pointer transition-colors ${activeTab === 'history' ? 'text-[#5f259f]' : 'text-gray-400'}`}><History className="w-6 h-6"/><span className="text-[10px] font-bold">History</span></div>
         </div>
 
-        {/* --- DORAEMON OVERLAY MODAL (For Homepage Buttons) --- */}
+        {/* --- DORAEMON OVERLAY MODAL --- */}
         <div className={`absolute bottom-0 left-0 w-full bg-white z-[60] rounded-t-3xl shadow-[0_-10px_40px_rgba(0,0,0,0.3)] transition-transform duration-500 ease-in-out ${activeAiContext ? 'translate-y-0' : 'translate-y-[100%]'}`} style={{ height: '85%' }}>
           {activeAiContext && (
             <div className="flex flex-col h-full p-6 pt-2">
               <div className="w-12 h-1.5 bg-gray-200 rounded-full mx-auto mb-4"></div>
               <div className="flex justify-between items-center mb-6">
                 <h2 className="text-xl font-bold flex items-center gap-2 text-indigo-900"><Sparkles className="w-6 h-6 text-indigo-600" /> PaySense AI</h2>
-                <button onClick={() => setActiveAiContext(null)} className="bg-gray-100 p-2 rounded-full text-gray-600"><X className="w-5 h-5"/></button>
+                <button onClick={() => setActiveAiContext(null)} className="bg-gray-100 p-2 rounded-full text-gray-600 hover:bg-gray-200"><X className="w-5 h-5"/></button>
               </div>
 
               {loading ? (
@@ -218,7 +221,7 @@ export default function PhonePeFinalApp() {
                     <div className="bg-green-50 p-4 rounded-2xl border-l-4 border-green-500"><p className="text-sm text-gray-800 font-medium">{aiResponse.contextualMath}</p></div>
                     <p className="text-sm text-gray-600 px-2 italic">"{aiResponse.actionableAdvice}"</p>
                   </div>
-                  <button onClick={() => setActiveAiContext(null)} className="w-full bg-[#5f259f] text-white font-bold py-4 rounded-2xl shadow-lg flex justify-center items-center gap-2">
+                  <button onClick={() => setActiveAiContext(null)} className="w-full bg-[#5f259f] text-white font-bold py-4 rounded-2xl shadow-lg flex justify-center items-center gap-2 hover:bg-purple-800 transition-colors">
                     {aiResponse.btnText} <ArrowRight className="w-5 h-5" />
                   </button>
                 </div>
